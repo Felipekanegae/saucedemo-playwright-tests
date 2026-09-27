@@ -1,20 +1,70 @@
 package login;
 
 import browser.BrowserManager;
-import com.microsoft.playwright.Page;
+import com.microsoft.playwright.Locator;
+import testData.ExcelTestData;
+import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
 public class LoginPage {
 
     private final BrowserManager browserManager;
+    private ExcelTestData testData;
 
-    public LoginPage(BrowserManager browserManager) {
+    public LoginPage(BrowserManager browserManager, ExcelTestData testData) {
         this.browserManager = browserManager;
+        this.testData = testData;
+
     }
 
-    public void openLoginPage() {
-        Page page = browserManager.getPage();
-        page.navigate("https://www.saucedemo.com/");
+    //===LOCATORS===
+    private Locator usernameField() {
+        return browserManager.getPage().locator("[data-test='username']");
     }
 
+    private Locator passwordField() {
+        return browserManager.getPage().locator("[data-test='password']");
+    }
+
+    private Locator loginButton() {
+        return browserManager.getPage().locator("[data-test='login-button']");
+    }
+
+    private Locator menuButton() {
+        return browserManager.getPage().locator("#react-burger-menu-btn");
+
+    }
+
+    private Locator logoutButton() {
+        return browserManager.getPage().locator("[data-test='logout-sidebar-link']");
+
+    }
+
+    //===ACTIONS===
+    public void login(){
+        fillLoginForm();
+        loginButton().click();
+
+    }
+
+    //===FORM FILLING===
+    private void fillLoginForm(){
+        usernameField().fill(testData.getStringOf("USER_NAME"));
+        passwordField().fill(testData.getStringOf("PASSWORD"));
+
+    }
+
+    //===VALIDATIONS===
+    public void validateLoginPage(){
+        assertThat(usernameField()).isVisible();
+        assertThat(passwordField()).isVisible();
+        assertThat(loginButton()).isVisible();
+
+    }
+
+    public void validateLogin(){
+        menuButton().click();
+        assertThat(logoutButton()).isVisible();
+
+    }
 
 }
