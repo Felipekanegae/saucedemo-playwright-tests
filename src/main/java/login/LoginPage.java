@@ -39,6 +39,11 @@ public class LoginPage {
 
     }
 
+    private Locator errorMessage() {
+        return browserManager.getPage().locator("[class='error-message-container error']");
+
+    }
+
     //===ACTIONS===
     public void login(){
         fillLoginForm();
@@ -64,6 +69,11 @@ public class LoginPage {
     public void validateLogin(){
         menuButton().click();
         assertThat(logoutButton()).isVisible();
+
+    }
+
+    public void validateErrorMessage(String message){
+        assertThat(errorMessage()).hasText(message);
 
     }
 

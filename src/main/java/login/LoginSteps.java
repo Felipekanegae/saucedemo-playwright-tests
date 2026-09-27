@@ -66,6 +66,18 @@ public class LoginSteps {
 
     }
 
+    @When("I enter a locked out user")
+    public void i_enter_a_locked_out_user() {
+        login.login();
+
+    }
+
+    @Then("the message {string} should be displayed")
+    public void the_message_should_be_displayed(String message) {
+        login.validateErrorMessage(message);
+
+    }
+
     @After
     public void afterScenario() {
         browserManager.closeBrowser();
