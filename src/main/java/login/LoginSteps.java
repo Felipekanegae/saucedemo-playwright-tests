@@ -85,6 +85,24 @@ public class LoginSteps {
 
     }
 
+    @Given("I am logged in")
+    public void i_am_logged_in() {
+       login.login();
+
+    }
+
+    @When("I log out")
+    public void i_log_out() {
+        login.logout();
+
+    }
+
+    @Then("I should be logged out successfully")
+    public void i_should_be_logged_out_successfully() {
+        login.validateLoginPage();
+
+    }
+
 
     @After
     public void afterScenario() {

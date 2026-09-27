@@ -18,29 +18,35 @@ public class LoginPage {
 
     //===LOCATORS===
     private Locator usernameField() {
-        return browserManager.getPage().locator("[data-test='username']");
+        return browserManager.getPage().locator(
+                "[data-test='username']");
     }
 
     private Locator passwordField() {
-        return browserManager.getPage().locator("[data-test='password']");
+        return browserManager.getPage().locator(
+                "[data-test='password']");
     }
 
     private Locator loginButton() {
-        return browserManager.getPage().locator("[data-test='login-button']");
+        return browserManager.getPage().locator(
+                "[data-test='login-button']");
     }
 
     private Locator menuButton() {
-        return browserManager.getPage().locator("#react-burger-menu-btn");
+        return browserManager.getPage().locator(
+                "#react-burger-menu-btn");
 
     }
 
     private Locator logoutButton() {
-        return browserManager.getPage().locator("[data-test='logout-sidebar-link']");
+        return browserManager.getPage().locator(
+                "#logout_sidebar_link");
 
     }
 
     private Locator errorMessage() {
-        return browserManager.getPage().locator("[class='error-message-container error']");
+        return browserManager.getPage().locator(
+                "[class='error-message-container error']");
 
     }
 
@@ -48,6 +54,12 @@ public class LoginPage {
     public void login(){
         fillLoginForm();
         loginButton().click();
+
+    }
+
+    public void logout(){
+        menuButton().click();
+        logoutButton().click();
 
     }
 
