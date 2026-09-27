@@ -78,6 +78,14 @@ public class LoginSteps {
 
     }
 
+
+    @When("I try to login without credentials")
+    public void i_try_to_login_without_credentials() {
+        login.login();
+
+    }
+
+
     @After
     public void afterScenario() {
         browserManager.closeBrowser();
