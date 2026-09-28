@@ -105,7 +105,6 @@ public class LoginSteps {
 
     }
 
-
     @After
     public void afterScenario() {
         browserManager.closeBrowser();
