@@ -25,9 +25,102 @@ public class ProductsPage {
 
     }
 
+    private Locator addBackpackToCartButton() {
+        return browserManager.getPage().locator(
+                "#add-to-cart-sauce-labs-backpack");
+
+    }
+
+    private Locator removeBackpackToCartButton() {
+        return browserManager.getPage().locator(
+                "#remove-sauce-labs-backpack");
+
+    }
+
+
+    private Locator addBikeLightToCartButton() {
+        return browserManager.getPage().locator(
+                "#add-to-cart-sauce-labs-bike-light");
+
+    }
+
+    private Locator removeBikeLightToCartButton() {
+        return browserManager.getPage().locator(
+                "#remove-sauce-labs-bike-light");
+
+    }
+
+    private Locator addFleeceJacketToCartButton() {
+        return browserManager.getPage().locator(
+                "#add-to-cart-sauce-labs-fleece-jacket");
+
+    }
+
+    private Locator removeFleeceJacketToCartButton() {
+        return browserManager.getPage().locator(
+                "#remove-sauce-labs-fleece-jacket");
+
+    }
+
+    private Locator addTShirtToCartButton() {
+        return browserManager.getPage().locator(
+                "#add-to-cart-sauce-labs-bolt-t-shirt");
+
+    }
+
+    private Locator removeTShirtToCartButton() {
+        return browserManager.getPage().locator(
+                "#remove-sauce-labs-bolt-t-shirt");
+
+    }
+
+    private Locator addOnesieToCartButton() {
+        return browserManager.getPage().locator(
+                "#add-to-cart-sauce-labs-onesie");
+
+    }
+
+
+    private Locator removeOnesieToCartButton() {
+        return browserManager.getPage().locator(
+                "#remove-sauce-labs-onesie");
+
+    }
+
+    private Locator addclassicTshirtToCartButton() {
+        return browserManager.getPage().locator(
+                "#add-to-cart-test.allthethings()-t-shirt-(red)");
+
+    }
+
+    private Locator removeClassicTshirtToCartButton() {
+        return browserManager.getPage().locator(
+                "#remove-test.allthethings()-t-shirt-(red)");
+
+    }
+
+    private Locator cartButton() {
+        return browserManager.getPage().locator(
+                "[data-test='shopping-cart-link']");
+
+    }
+
+    private Locator cartList() {
+        return browserManager.getPage().locator(
+                "[class='cart_item_label']");
+
+    }
+
+    private Locator productName(String productName) {
+        return browserManager.getPage()
+                .locator("[data-test='inventory-item-name']")
+                .filter(new Locator.FilterOptions().setHasText(productName));
+    }
+
     //===ACTIONS==
 
     public void sortByProducts() {
+
         String sort = testData.getStringOf("SORT");
 
         switch (sort) {
@@ -49,6 +142,42 @@ public class ProductsPage {
 
             default:
                 throw new IllegalArgumentException("Invalid sort option: " + sort);
+
+        }
+
+    }
+
+    public void addProductToCart() {
+
+        String product = testData.getStringOf("PRODUCT");
+
+        switch (product) {
+            case "Backpack":
+                addBackpackToCartButton().click();
+                break;
+
+            case "Bike_Light":
+                addBikeLightToCartButton().click();
+                break;
+
+            case "T-Shirt":
+                addTShirtToCartButton().click();
+                break;
+
+            case "Classic_T-Shirt":
+                addclassicTshirtToCartButton().click();
+                break;
+
+            case "Fleece_Jacket":
+                addFleeceJacketToCartButton().click();
+                break;
+
+            case "Onesie":
+                addOnesieToCartButton().click();
+                break;
+
+            default:
+                throw new IllegalArgumentException("Invalid sort option: " + product);
 
         }
 
@@ -81,5 +210,21 @@ public class ProductsPage {
                 throw new IllegalArgumentException("Invalid sort option: " + sort);
 
         }
+
     }
+
+    public void validateAddProductToCart() {
+        cartButton().click();
+        validateProductInTheCart();
+
+    }
+
+    private void validateProductInTheCart() {
+
+        String product = testData.getStringOf("PRODUCT");
+
+        assertThat(productName(product)).isVisible();
+
+    }
+
 }

@@ -107,6 +107,16 @@ public class ProductsSteps {
 
     }
 
+    @When("I add a product to cart")
+    public void i_add_a_product_to_cart() {
+        products.addProductToCart();
+    }
+
+    @Then("the product should be in the cart")
+    public void the_product_should_be_in_the_cart() {
+        products.validateAddProductToCart();
+
+    }
 
     @After
     public void afterScenario() {
