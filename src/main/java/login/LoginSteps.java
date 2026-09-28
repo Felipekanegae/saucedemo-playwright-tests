@@ -20,7 +20,9 @@ public class LoginSteps {
     private final BrowserManager browserManager;
     private final ExcelTestData testData;
 
-    public LoginSteps(BrowserManager browserManager, ExcelTestData testData, LoginPage login) {
+    public LoginSteps(BrowserManager browserManager,
+                      ExcelTestData testData,
+                      LoginPage login) {
         this.browserManager = browserManager;
         this.testData = testData;
         this.login = login;
