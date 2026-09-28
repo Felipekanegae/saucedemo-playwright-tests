@@ -81,6 +81,18 @@ public class ProductsSteps {
 
     }
 
+    @When("I sort the products by price in ascending order")
+    public void i_sort_the_products_by_price_in_ascending_order() {
+        products.sortByProducts();
+
+    }
+
+    @Then("the price ascending sort option should be selected")
+    public void the_price_ascending_sort_option_should_be_selected() {
+        products.validateSortIsSelected();
+
+    }
+
 
     @After
     public void afterScenario() {
