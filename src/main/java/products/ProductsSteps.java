@@ -62,6 +62,7 @@ public class ProductsSteps {
     @When("I sort the products by name in ascending order")
     public void i_sort_the_products_by_name_in_ascending_order() {
         products.sortByProducts();
+
     }
 
     @Then("the name ascending sort option should be selected")
@@ -73,6 +74,7 @@ public class ProductsSteps {
     @When("I sort the products by name in descending order")
     public void i_sort_the_products_by_name_in_descending_order() {
         products.sortByProducts();
+
     }
 
     @Then("the name descending sort option should be selected")
@@ -89,6 +91,18 @@ public class ProductsSteps {
 
     @Then("the price ascending sort option should be selected")
     public void the_price_ascending_sort_option_should_be_selected() {
+        products.validateSortIsSelected();
+
+    }
+
+    @When("I sort the products by price in descending order")
+    public void i_sort_the_products_by_price_in_descending_order() {
+        products.sortByProducts();
+
+    }
+
+    @Then("the price descending sort option should be selected")
+    public void the_price_descending_sort_option_should_be_selected() {
         products.validateSortIsSelected();
 
     }
