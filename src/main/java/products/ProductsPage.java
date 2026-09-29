@@ -26,69 +26,32 @@ public class ProductsPage {
 
     }
 
-    private Locator addBackpackToCartButton() {
-        return browserManager.getPage().locator(
-                "#add-to-cart-sauce-labs-backpack");
-
-    }
-
-    private Locator removeBackpackToCartButton() {
-        return browserManager.getPage().locator(
-                "#remove-sauce-labs-backpack");
-
-    }
-
-
-    private Locator addBikeLightToCartButton() {
-        return browserManager.getPage().locator(
-                "#add-to-cart-sauce-labs-bike-light");
-
-    }
-
-    private Locator addFleeceJacketToCartButton() {
-        return browserManager.getPage().locator(
-                "#add-to-cart-sauce-labs-fleece-jacket");
-
-    }
-
-    private Locator addTShirtToCartButton() {
-        return browserManager.getPage().locator(
-                "#add-to-cart-sauce-labs-bolt-t-shirt");
-
-    }
-
-    private Locator addOnesieToCartButton() {
-        return browserManager.getPage().locator(
-                "#add-to-cart-sauce-labs-onesie");
-
-    }
-
-    private Locator addclassicTshirtToCartButton() {
-        return browserManager.getPage().locator(
-                "#add-to-cart-test.allthethings()-t-shirt-(red)");
-
-    }
-
     private Locator cartButton() {
         return browserManager.getPage().locator(
                 "[data-test='shopping-cart-link']");
 
     }
 
-    private Locator cartItem(String productName) {
+    private Locator productItem(String productName) {
         return browserManager.getPage()
                 .locator("[data-test='inventory-item']")
                 .filter(new Locator.FilterOptions().setHasText(productName));
 
     }
 
+    private Locator addButton(String productName) {
+        return productItem(productName)
+                .getByRole(AriaRole.BUTTON,
+                        new Locator.GetByRoleOptions().setName("Add to cart"));
+    }
+
     private Locator removeButton(String productName) {
-        return cartItem(productName)
+        return productItem(productName)
                 .getByRole(AriaRole.BUTTON,
                         new Locator.GetByRoleOptions().setName("Remove"));
     }
 
-    //===ACTIONS==
+    //===ACTIONS===
 
     public void sortByProducts() {
 
@@ -122,40 +85,14 @@ public class ProductsPage {
 
         String product = testData.getStringOf("PRODUCT");
 
-        switch (product) {
-            case "Sauce Labs Backpack":
-                addBackpackToCartButton().click();
-                break;
+        addButton(product).click();
 
-            case "Sauce Labs Bike Light":
-                addBikeLightToCartButton().click();
-                break;
 
-            case "Sauce Labs Bolt T-Shirt":
-                addTShirtToCartButton().click();
-                break;
-
-            case "Test.allTheThings() T-Shirt (Red)":
-                addclassicTshirtToCartButton().click();
-                break;
-
-            case "Sauce Labs Fleece Jacket":
-                addFleeceJacketToCartButton().click();
-                break;
-
-            case "Sauce Labs Onesie":
-                addOnesieToCartButton().click();
-                break;
-
-            default:
-                throw new IllegalArgumentException("Invalid product option: " + product);
-
-        }
     }
 
     public void removeProductFromCart() {
-        String product = testData.getStringOf("PRODUCT");
 
+        String product = testData.getStringOf("PRODUCT");
         removeButton(product).click();
     }
 
@@ -198,14 +135,14 @@ public class ProductsPage {
     private void validateProductInTheCart() {
 
         String product = testData.getStringOf("PRODUCT");
-        assertThat(cartItem(product)).isVisible();
+        assertThat(productItem(product)).isVisible();
 
     }
 
     public void validateProductRemovedFromCart() {
 
         String product = testData.getStringOf("PRODUCT");
-        assertThat(cartItem(product)).isHidden();
+        assertThat(productItem(product)).isHidden();
 
     }
 
