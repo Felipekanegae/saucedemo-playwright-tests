@@ -12,7 +12,7 @@ import static io.cucumber.junit.platform.engine.Constants.FILTER_TAGS_PROPERTY_N
 @IncludeEngines("cucumber")
 @SelectClasspathResource("features/products")
 @ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "products")
-@ConfigurationParameter(key = FILTER_TAGS_PROPERTY_NAME, value = "@CT009")
+@ConfigurationParameter(key = FILTER_TAGS_PROPERTY_NAME, value = "@CT010")
 
 
 public class ProductsTest {

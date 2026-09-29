@@ -118,6 +118,31 @@ public class ProductsSteps {
 
     }
 
+    @Given("I added a product to cart")
+    public void i_added_a_product_to_cart() {
+        login.login();
+        products.addProductToCart();
+
+    }
+
+    @When("I am on the cart page")
+    public void i_am_on_the_cart_page() {
+        products.validateAddProductToCart();
+
+    }
+
+    @When("I remove the product from cart")
+    public void i_remove_the_product_from_cart() {
+        products.removeProductFromCart();
+
+    }
+
+    @Then("the product should be removed")
+    public void the_product_should_be_removed() {
+        products.validateProductRemovedFromCart();
+
+    }
+
     @After
     public void afterScenario() {
         browserManager.closeBrowser();

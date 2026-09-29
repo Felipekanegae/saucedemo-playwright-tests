@@ -2,6 +2,7 @@ package products;
 
 import browser.BrowserManager;
 import com.microsoft.playwright.Locator;
+import com.microsoft.playwright.options.AriaRole;
 import testData.ExcelTestData;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
@@ -44,21 +45,9 @@ public class ProductsPage {
 
     }
 
-    private Locator removeBikeLightToCartButton() {
-        return browserManager.getPage().locator(
-                "#remove-sauce-labs-bike-light");
-
-    }
-
     private Locator addFleeceJacketToCartButton() {
         return browserManager.getPage().locator(
                 "#add-to-cart-sauce-labs-fleece-jacket");
-
-    }
-
-    private Locator removeFleeceJacketToCartButton() {
-        return browserManager.getPage().locator(
-                "#remove-sauce-labs-fleece-jacket");
 
     }
 
@@ -68,22 +57,9 @@ public class ProductsPage {
 
     }
 
-    private Locator removeTShirtToCartButton() {
-        return browserManager.getPage().locator(
-                "#remove-sauce-labs-bolt-t-shirt");
-
-    }
-
     private Locator addOnesieToCartButton() {
         return browserManager.getPage().locator(
                 "#add-to-cart-sauce-labs-onesie");
-
-    }
-
-
-    private Locator removeOnesieToCartButton() {
-        return browserManager.getPage().locator(
-                "#remove-sauce-labs-onesie");
 
     }
 
@@ -93,28 +69,23 @@ public class ProductsPage {
 
     }
 
-    private Locator removeClassicTshirtToCartButton() {
-        return browserManager.getPage().locator(
-                "#remove-test.allthethings()-t-shirt-(red)");
-
-    }
-
     private Locator cartButton() {
         return browserManager.getPage().locator(
                 "[data-test='shopping-cart-link']");
 
     }
 
-    private Locator cartList() {
-        return browserManager.getPage().locator(
-                "[class='cart_item_label']");
+    private Locator cartItem(String productName) {
+        return browserManager.getPage()
+                .locator("[data-test='inventory-item']")
+                .filter(new Locator.FilterOptions().setHasText(productName));
 
     }
 
-    private Locator productName(String productName) {
-        return browserManager.getPage()
-                .locator("[data-test='inventory-item-name']")
-                .filter(new Locator.FilterOptions().setHasText(productName));
+    private Locator removeButton(String productName) {
+        return cartItem(productName)
+                .getByRole(AriaRole.BUTTON,
+                        new Locator.GetByRoleOptions().setName("Remove"));
     }
 
     //===ACTIONS==
@@ -152,35 +123,40 @@ public class ProductsPage {
         String product = testData.getStringOf("PRODUCT");
 
         switch (product) {
-            case "Backpack":
+            case "Sauce Labs Backpack":
                 addBackpackToCartButton().click();
                 break;
 
-            case "Bike_Light":
+            case "Sauce Labs Bike Light":
                 addBikeLightToCartButton().click();
                 break;
 
-            case "T-Shirt":
+            case "Sauce Labs Bolt T-Shirt":
                 addTShirtToCartButton().click();
                 break;
 
-            case "Classic_T-Shirt":
+            case "Test.allTheThings() T-Shirt (Red)":
                 addclassicTshirtToCartButton().click();
                 break;
 
-            case "Fleece_Jacket":
+            case "Sauce Labs Fleece Jacket":
                 addFleeceJacketToCartButton().click();
                 break;
 
-            case "Onesie":
+            case "Sauce Labs Onesie":
                 addOnesieToCartButton().click();
                 break;
 
             default:
-                throw new IllegalArgumentException("Invalid sort option: " + product);
+                throw new IllegalArgumentException("Invalid product option: " + product);
 
         }
+    }
 
+    public void removeProductFromCart() {
+        String product = testData.getStringOf("PRODUCT");
+
+        removeButton(product).click();
     }
 
     //===VALIDATIONS===
@@ -222,8 +198,14 @@ public class ProductsPage {
     private void validateProductInTheCart() {
 
         String product = testData.getStringOf("PRODUCT");
+        assertThat(cartItem(product)).isVisible();
 
-        assertThat(productName(product)).isVisible();
+    }
+
+    public void validateProductRemovedFromCart() {
+
+        String product = testData.getStringOf("PRODUCT");
+        assertThat(cartItem(product)).isHidden();
 
     }
 
