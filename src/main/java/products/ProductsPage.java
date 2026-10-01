@@ -32,6 +32,18 @@ public class ProductsPage {
 
     }
 
+    private Locator continueShoppingButton() {
+        return browserManager.getPage().locator(
+                "#continue-shopping");
+
+    }
+
+    private Locator titleProductsPage() {
+        return browserManager.getPage().locator(
+                "[data-test='title']");
+
+    }
+
     private Locator productItem(String productName) {
         return browserManager.getPage()
                 .locator("[data-test='inventory-item']")
@@ -78,15 +90,12 @@ public class ProductsPage {
                 throw new IllegalArgumentException("Invalid sort option: " + sort);
 
         }
-
     }
 
     public void addProductToCart() {
 
         String product = testData.getStringOf("PRODUCT");
-
         addButton(product).click();
-
 
     }
 
@@ -94,6 +103,11 @@ public class ProductsPage {
 
         String product = testData.getStringOf("PRODUCT");
         removeButton(product).click();
+    }
+
+    public void continueShopping() {
+        continueShoppingButton().click();
+
     }
 
     //===VALIDATIONS===
@@ -143,6 +157,12 @@ public class ProductsPage {
 
         String product = testData.getStringOf("PRODUCT");
         assertThat(productItem(product)).isHidden();
+
+    }
+
+    public void validateProductPage(){
+        assertThat(sortContainer()).isVisible();
+        assertThat(titleProductsPage()).isVisible();
 
     }
 

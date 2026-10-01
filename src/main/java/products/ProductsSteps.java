@@ -143,6 +143,18 @@ public class ProductsSteps {
 
     }
 
+    @When("I click on continue shopping")
+    public void i_click_on_continue_shopping() {
+        products.continueShopping();
+
+    }
+
+    @Then("I should be on the products page")
+    public void i_should_be_on_the_products_page() {
+        products.validateProductPage();
+
+    }
+
     @After
     public void afterScenario() {
         browserManager.closeBrowser();
