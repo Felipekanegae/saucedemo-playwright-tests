@@ -13,7 +13,8 @@ public class ProductsPage {
     private final BrowserManager browserManager;
     private ExcelTestData testData;
 
-    public ProductsPage(BrowserManager browserManager, ExcelTestData testData) {
+    public ProductsPage(BrowserManager browserManager,
+                        ExcelTestData testData) {
         this.browserManager = browserManager;
         this.testData = testData;
 
@@ -93,14 +94,12 @@ public class ProductsPage {
     }
 
     public void addProductToCart() {
-
         String product = testData.getStringOf("PRODUCT");
         addButton(product).click();
 
     }
 
     public void removeProductFromCart() {
-
         String product = testData.getStringOf("PRODUCT");
         removeButton(product).click();
     }
@@ -147,14 +146,12 @@ public class ProductsPage {
     }
 
     private void validateProductInTheCart() {
-
         String product = testData.getStringOf("PRODUCT");
         assertThat(productItem(product)).isVisible();
 
     }
 
     public void validateProductRemovedFromCart() {
-
         String product = testData.getStringOf("PRODUCT");
         assertThat(productItem(product)).isHidden();
 
