@@ -54,6 +54,12 @@ public class CheckoutPage {
                 "#checkout_summary_container");
     }
 
+    private Locator errorMessage() {
+        return browserManager.getPage().locator(
+                "[data-test='error']");
+
+    }
+
     //===ACTIONS===
 
     public void openCheckoutPage(){
@@ -82,6 +88,11 @@ public class CheckoutPage {
 
     public void validateCheckoutOverviewPage() {
         assertThat(checkoutContainer()).isVisible();
+
+    }
+
+    public void validateErrorMessage(String message) {
+        assertThat(errorMessage()).hasText(message);
 
     }
 

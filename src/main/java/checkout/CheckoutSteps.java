@@ -82,6 +82,19 @@ public class CheckoutSteps {
 
     }
 
+    @When("I try to continue without filling in the required information")
+    public void i_try_to_continue_without_filling_in_the_required_information() {
+        checkout.checkout();
+
+    }
+
+    @Then("The message {string} should be displayed")
+    public void the_message_should_be_displayed(String message) {
+        checkout.validateErrorMessage(message);
+
+    }
+
+
     @After
     public void afterScenario() {
         browserManager.closeBrowser();
