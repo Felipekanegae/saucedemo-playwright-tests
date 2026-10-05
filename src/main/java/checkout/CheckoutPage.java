@@ -21,7 +21,6 @@ public class CheckoutPage {
     private Locator cartButton() {
         return browserManager.getPage().locator(
                 "[data-test='shopping-cart-link']");
-
     }
 
     private Locator checkoutButton() {
@@ -54,6 +53,11 @@ public class CheckoutPage {
                 "#checkout_summary_container");
     }
 
+    private Locator inventoryItems() {
+        return browserManager.getPage().locator(
+                "[data-test='inventory-item-name']");
+    }
+
     private Locator errorMessage() {
         return browserManager.getPage().locator(
                 "[data-test='error']");
@@ -74,7 +78,6 @@ public class CheckoutPage {
 
     }
 
-
     //===FORM FILLING===
 
     private  void fillCheckoutForm() {
@@ -88,6 +91,12 @@ public class CheckoutPage {
 
     public void validateCheckoutOverviewPage() {
         assertThat(checkoutContainer()).isVisible();
+
+    }
+
+    public void validateCheckoutOverviewItem(){
+        String productName = testData.getStringOf("PRODUCT");
+        assertThat(inventoryItems()).hasText(productName);
 
     }
 

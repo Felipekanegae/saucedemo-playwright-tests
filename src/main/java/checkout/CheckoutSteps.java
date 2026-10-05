@@ -12,7 +12,6 @@ import login.LoginPage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import products.ProductsPage;
-import products.ProductsSteps;
 import testData.ExcelTestData;
 
 
@@ -94,12 +93,24 @@ public class CheckoutSteps {
 
     }
 
+    @When("I go to the checkout overview page")
+    public void i_go_to_the_checkout_overview_page() {
+       checkout.openCheckoutPage();
+       checkout.checkout();
+
+    }
+
+    @Then("the added product should be displayed on the overview page")
+    public void the_added_product_should_be_displayed_on_the_overview_page() {
+        checkout.validateCheckoutOverviewPage();
+        checkout.validateCheckoutOverviewItem();
+
+    }
 
     @After
     public void afterScenario() {
         browserManager.closeBrowser();
 
     }
-
 
 }
