@@ -33,6 +33,11 @@ public class CheckoutPage {
                 "#continue");
     }
 
+    private Locator finishButton() {
+        return browserManager.getPage().locator(
+                "#finish");
+    }
+
     private Locator firstNameField() {
         return browserManager.getPage().locator(
                 "#first-name");
@@ -64,6 +69,12 @@ public class CheckoutPage {
 
     }
 
+    private Locator thanksMessage() {
+        return browserManager.getPage().locator(
+                "[data-test='complete-text']");
+
+    }
+
     //===ACTIONS===
 
     public void openCheckoutPage(){
@@ -75,6 +86,11 @@ public class CheckoutPage {
     public void checkout() {
         fillCheckoutForm();
         continueButton().click();
+
+    }
+
+    public void finishPurchase() {
+        finishButton().click();
 
     }
 
@@ -102,6 +118,11 @@ public class CheckoutPage {
 
     public void validateErrorMessage(String message) {
         assertThat(errorMessage()).hasText(message);
+
+    }
+
+    public void validateThanksMessage(String message) {
+        assertThat(thanksMessage()).hasText(message);
 
     }
 

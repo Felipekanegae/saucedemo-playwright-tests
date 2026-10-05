@@ -107,6 +107,20 @@ public class CheckoutSteps {
 
     }
 
+    @When("I finish the purchase")
+    public void i_finish_the_purchase() {
+        checkout.openCheckoutPage();
+        checkout.checkout();
+        checkout.finishPurchase();
+
+    }
+
+    @Then("the success message {string} should be displayed")
+    public void the_success_message_should_be_displayed(String message) {
+       checkout.validateThanksMessage(message);
+
+    }
+
     @After
     public void afterScenario() {
         browserManager.closeBrowser();
