@@ -11,8 +11,13 @@ public class BrowserManager {
 
     public void startBrowser() {
         playwright = Playwright.create();
+
+        boolean headless = Boolean.getBoolean("headless");
+
         browser = playwright.chromium().launch(
-                new BrowserType.LaunchOptions().setHeadless(false));
+                new BrowserType.LaunchOptions().setHeadless(headless)
+        );
+
         context = browser.newContext();
         page = context.newPage();
     }
